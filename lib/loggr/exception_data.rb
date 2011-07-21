@@ -1,7 +1,7 @@
 require 'digest/md5'
 
 module Loggr
-  class ControllerExceptionData < ExceptionData
+  class ExceptionData
     def self.format_exception(ex, request=nil)
 	  res = ""
 

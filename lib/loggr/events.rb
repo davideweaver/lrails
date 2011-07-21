@@ -9,7 +9,7 @@ module Loggr
       ev.text(ex.message)
       ev.tags("error")
       ev.add_tags(ex.class)
-      ev.data(Loggr::ControllerExceptionData.format_exception(ex, request))
+      ev.data(Loggr::ExceptionData.format_exception(ex, request))
       ev.datatype(DataType::HTML)
       return ev
     end
