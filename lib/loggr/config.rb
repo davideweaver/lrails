@@ -13,7 +13,7 @@ module Loggr
         :disabled_by_default => %w(development test)
       }
 
-      attr_accessor :api_key, :enabled
+      attr_accessor :log_key, :api_key, :enabled
       attr_accessor :http_proxy_host, :http_proxy_port, :http_proxy_username, :http_proxy_password
       attr_writer :ssl
 
@@ -22,6 +22,7 @@ module Loggr
           begin
             config = YAML::load_file(config_file)
             env_config = config[application_environment] || {}
+			@log_key = config['log-key'] || env_config['log-key']
             @api_key = config['api-key'] || env_config['api-key']
 
             @http_proxy_host = config['http-proxy-host']
@@ -41,9 +42,14 @@ module Loggr
         end
       end
 
+      def log_key
+        return @log_key unless @log_key.nil?
+        @log_key ||= ENV['LOGGR_LOG_KEY'] unless ENV['LOGGR_LOG_KEY'].nil?
+      end
+
       def api_key
         return @api_key unless @api_key.nil?
-        @api_key ||= ENV['EXCEPTIONAL_API_KEY'] unless ENV['EXCEPTIONAL_API_KEY'].nil?
+        @api_key ||= ENV['LOGGR_API_KEY'] unless ENV['LOGGR_API_KEY'].nil?
       end
 
       def application_environment

@@ -2,7 +2,6 @@ $:.unshift File.dirname(__FILE__)
 
 require 'loggr/monkeypatches'
 require 'loggr/catcher'
-require 'loggr/startup'
 require 'loggr/log_factory'
 require 'loggr/config'
 require 'loggr/application_environment'
@@ -13,7 +12,6 @@ require 'loggr/alert_data'
 require 'loggr/remote'
 require 'loggr/integration/rack'    
 require 'loggr/integration/rack_rails'
-require 'loggr/integration/alerter'
 require 'loggr/version'
 require 'loggr/events'
 
