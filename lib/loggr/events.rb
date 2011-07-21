@@ -4,12 +4,12 @@ module Loggr
       return FluentEvent.new()
     end
 
-    def self.create_from_exception(ex)
+    def self.create_from_exception(ex, request=nil)
       ev = self.create
       ev.text(ex.message)
       ev.tags("error")
       ev.add_tags(ex.class)
-      ev.data(Loggr::ControllerExceptionData.format_exception(ex))
+      ev.data(Loggr::ControllerExceptionData.format_exception(ex, request))
       ev.datatype(DataType::HTML)
       return ev
     end

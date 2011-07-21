@@ -2,13 +2,14 @@ require 'digest/md5'
 
 module Loggr
   class ControllerExceptionData < ExceptionData
-    def self.format_exception(ex, controller=nil, request=nil)
+    def self.format_exception(ex, request=nil)
 	  res = ""
 
 	  # basic info
       res = res + sprintf("<b>Exception</b>: %s<br />", ex.message)
       res = res + sprintf("<b>Type</b>: %s<br />", ex.class)
       res = res + sprintf("<b>Machine</b>: %s<br />", request.env['SERVER_NAME']) if !request.nil?
+      res = res + sprintf("<b>Machine</b>: %s<br />", `uname -n`.chop)
       res = res + "<br />"
 
 	  # web details
