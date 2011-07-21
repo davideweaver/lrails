@@ -3,7 +3,7 @@ $:.unshift File.dirname(__FILE__)
 require 'loggr/catcher'
 require 'loggr/log_factory'
 require 'loggr/config'
-require 'loggr/controller_exception_data'
+require 'loggr/exception_data'
 require 'loggr/integration/rack'    
 require 'loggr/integration/rack_rails'
 require 'loggr/version'
