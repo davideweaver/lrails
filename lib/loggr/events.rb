@@ -5,12 +5,27 @@ module Loggr
     end
 
     def self.create_from_exception(ex, request=nil)
-      ev = self.create
+      controller = request.parameters['controller'].camelize if !request.nil?
+	  action = request.parameters['action'].camelize if !request.nil?
+	  source = ""
+	  if !controller.nil?
+	    source = controller + "Controller"
+		if !action.nil?
+		  source = source + "#" + action
+		end
+	  end
+	  ip = ""
+	  if !request.nil?
+	    ip = (request.respond_to?(:remote_ip) ? request.remote_ip : request.ip))
+	  end
+	  ev = self.create
       ev.text("Exception '#{ex.message}'")
       ev.tags("error")
       ev.add_tags(ex.class)
       ev.data(Loggr::ExceptionData.format_exception(ex, request))
       ev.datatype(DataType::HTML)
+      ev.source(source)
+	  ev.geo_ip(ip)
       return ev
     end
   end
