@@ -9,8 +9,8 @@ module Loggr
 	  begin
         if !request.nil?
 	      if !request.parameters.nil?
-            controller = request.parameters['controller'].camelize
-	        action = request.parameters['action']
+            controller = request.params['controller'].camelize
+	        action = request.params['action']
 	        if !controller.nil?
 	          source = controller.camelize + "Controller"
               if !action.nil?
