@@ -6,7 +6,7 @@ module Loggr
 
     def self.create_from_exception(ex, request=nil)
       ev = self.create
-      ev.text(ex.message)
+      ev.text("Exception '#{ex.message}'")
       ev.tags("error")
       ev.add_tags(ex.class)
       ev.data(Loggr::ExceptionData.format_exception(ex, request))

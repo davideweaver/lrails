@@ -3,11 +3,27 @@ module Loggr
     def post(e, async = true)
       require 'net/http'
       require 'uri'
-      apikey = ::Loggr::Config.api_key
       logkey = ::Loggr::Config.log_key
       uri = URI.parse("http://post.loggr.net/1/logs/#{logkey}/events")
-      resp = Net::HTTP.post_form(uri, {"apikey" => apikey, "text" => e.text, "data" => e.data, "value" => e.value, "tags" => e.tags, "source" => e.source, "link" => e.link, "geo" => e.geo})
+	  params = create_params(e)
+      resp = Net::HTTP.post_form(uri, params)
     end
+
+	def create_params(e)
+      apikey = ::Loggr::Config.api_key
+	  params = {"apikey" => apikey, "text" => e.text}
+	  params = params.merge({"link" => e.link}) if !e.link.nil?
+	  params = params.merge({"tags" => e.tags}) if !e.tags.nil?
+	  params = params.merge({"source" => e.source}) if !e.source.nil?
+	  params = params.merge({"geo" => e.geo}) if !e.geo.nil?
+	  params = params.merge({"value" => e.value}) if !e.value.nil?
+	  if e.datatype == DataType::HTML
+	    params = params.merge({"data" => sprintf("@html\r\n%s", e.data)}) if !e.data.nil?
+	  else
+	    params = params.merge({"data" => e.data}) if !e.data.nil?
+	  end
+	  return params
+	end
 
     def call_remote(url, data)
       config = Loggr::Config
