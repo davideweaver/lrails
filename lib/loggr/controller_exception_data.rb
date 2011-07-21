@@ -8,8 +8,8 @@ module Loggr
 	  # basic info
       res = res + sprintf("<b>Exception</b>: %s<br />", ex.message)
       res = res + sprintf("<b>Type</b>: %s<br />", ex.class)
-      res = res + sprintf("<b>Machine</b>: %s<br />", request.env['SERVER_NAME']) if !request.nil?
-      res = res + sprintf("<b>Machine</b>: %s<br />", `uname -n`.chop)
+      res = res + sprintf("<b>Machine</b>: %s<br />", get_hostname)
+      res = res + sprintf("<b>Language</b>: %s<br />", language_version_string)
       res = res + "<br />"
 
 	  # web details
@@ -26,14 +26,19 @@ module Loggr
 	  return res
 	end
 
-    def initialize(exception, controller=nil, request=nil)
-      super(exception)
-      @request = request
-      @controller = controller
+    def self.get_hostname
+      require 'socket' unless defined?(Socket)
+      Socket.gethostname
+    rescue
+      'UNKNOWN'
     end
 
-    def framework
-      "rails"
+    def self.language_version_string
+      "#{RUBY_VERSION rescue '?.?.?'} p#{RUBY_PATCHLEVEL rescue '???'} #{RUBY_RELEASE_DATE rescue '????-??-??'} #{RUBY_PLATFORM rescue '????'}"
+    end
+
+    def self.get_username
+      ENV['LOGNAME'] || ENV['USER'] || ENV['USERNAME'] || ENV['APACHE_RUN_USER'] || 'UNKNOWN'
     end
 
     def extra_stuff                                                                                               
@@ -50,33 +55,6 @@ module Loggr
           'session' => self.class.sanitize_session(@request)
         }
       }
-    end
-
-    def filter_hash(keys_to_filter, hash)
-      if keys_to_filter.is_a?(Array) && !keys_to_filter.empty?
-        hash.each do |key, value|
-          if value.respond_to?(:to_hash)
-            filter_hash(keys_to_filter, hash[key])
-          elsif key_match?(key, keys_to_filter)
-            hash[key] = "[FILTERED]"
-          end
-        end
-      end
-      hash
-    end
-
-    def key_match?(key, keys_to_filter)
-      keys_to_filter.map {|k| k.to_s}.include?(key.to_s)
-    end
-
-    def filter_paramaters(hash)                                                                                       
-      if @request.respond_to?(:env) && @request.env["action_dispatch.parameter_filter"]
-        filter_hash(@request.env["action_dispatch.parameter_filter"], hash)
-      elsif @controller.respond_to?(:filter_parameters)
-        @controller.send(:filter_parameters, hash)
-      else
-        hash
-      end
     end
   end
 end
