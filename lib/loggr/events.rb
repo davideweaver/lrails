@@ -10,14 +10,14 @@ module Loggr
       ev.tags("error")
       ev.add_tags(ex.class)
       ev.data(Loggr::ControllerExceptionData.format_exception(ex))
-      ev.datatype(DataType::html)
+      ev.datatype(DataType::HTML)
       return ev
     end
   end
 
   class DataType
-    html = 0
-    plaintext = 1
+    HTML = 0
+    PLAINTEXT = 1
   end
 
   class Event
