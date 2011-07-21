@@ -20,7 +20,7 @@ module Loggr
 	  # stack
       res = res + "<b>Stack Trace</b><br />"
       res = res + "<br />"
-	  res = res + ex.backtrace
+	  res = res + (ex.backtrace || []).join("<br/>")
 
 	  return res
 	end
