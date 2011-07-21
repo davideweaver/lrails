@@ -16,7 +16,7 @@ module Loggr
 	  end
 	  ip = ""
 	  if !request.nil?
-	    ip = (request.respond_to?(:remote_ip) ? request.remote_ip : request.ip))
+	    ip = (request.respond_to?(:remote_ip) ? request.remote_ip : request.ip)
 	  end
 	  ev = self.create
       ev.text("Exception '#{ex.message}'")
