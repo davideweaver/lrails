@@ -5,14 +5,18 @@ module Loggr
     end
 
     def self.create_from_exception(ex, request=nil)
-      controller = request.parameters['controller'].camelize if !request.nil?
-	  action = request.parameters['action'].camelize if !request.nil?
 	  source = ""
-	  if !controller.nil?
-	    source = controller + "Controller"
-		if !action.nil?
-		  source = source + "#" + action
-		end
+	  if !request.nil?
+	    if !request.parameters.nil?
+          controller = request.parameters['controller'].camelize
+	      action = request.parameters['action']
+	      if !controller.nil?
+	        source = controller.camelize + "Controller"
+            if !action.nil?
+              source = source + "#" + action.camelize
+            end
+          end
+	    end
 	  end
 	  ip = ""
 	  if !request.nil?
