@@ -1,15 +1,4 @@
 module Loggr
-  class LogClient
-    def post(e, async = true)
-      require 'net/http'
-      require 'uri'
-      apikey = ::Loggr::Config.api_key
-      logkey = "testlog"
-      uri = URI.parse("http://post.loggr.net/1/logs/#{logkey}/events")
-      resp = Net::HTTP.post_form(uri, {"apikey" => apikey, "text" => e.text, "data" => e.data})
-    end
-  end
-
   class Events
     def self.create
       return FluentEvent.new()
