@@ -18,9 +18,9 @@ module Loggr
 	    res = res + sprintf("<b>User</b>: %s<br />", get_username)
 	    res = res + sprintf("<b>User host address</b>: %s<br />", (request.respond_to?(:remote_ip) ? request.remote_ip : request.ip))
 	    res = res + sprintf("<b>Request Method</b>: %s<br />", request.request_method.to_s)
-	    res = res + sprintf("<b>User Agent</b>: %s<br />", request.env['HTTP_USER_AGENT'] || 'UNKNOWN')
-	    res = res + sprintf("<b>Referer</b>: %s<br />", request.env['HTTP_REFERER'] || 'UNKNOWN')
-	    res = res + sprintf("<b>Script Name</b>: %s<br />", request.env['SCRIPT_NAME'] || 'UNKNOWN')
+	    res = res + sprintf("<b>User Agent</b>: %s<br />", request.env['HTTP_USER_AGENT'] || '')
+	    res = res + sprintf("<b>Referer</b>: %s<br />", request.env['HTTP_REFERER'] || '')
+	    res = res + sprintf("<b>Script Name</b>: %s<br />", request.env['SCRIPT_NAME'] || '')
 	    res = res + "<br />"
 	  end
 

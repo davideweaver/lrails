@@ -9,7 +9,6 @@ module Loggr
       
       def handle_with_rack(exception, environment, request) 
         if Config.should_send_to_api?
-          # data = RackExceptionData.new(exception, environment, request)
 		  Loggr::Events.create_from_exception(exception, request).post()
         end
       end

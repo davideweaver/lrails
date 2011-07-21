@@ -6,7 +6,7 @@ module Loggr
       apikey = ::Loggr::Config.api_key
       logkey = ::Loggr::Config.log_key
       uri = URI.parse("http://post.loggr.net/1/logs/#{logkey}/events")
-      resp = Net::HTTP.post_form(uri, {"apikey" => apikey, "text" => e.text, "data" => e.data})
+      resp = Net::HTTP.post_form(uri, {"apikey" => apikey, "text" => e.text, "data" => e.data, "value" => e.value, "tags" => e.tags, "source" => e.source, "link" => e.link, "geo" => e.geo})
     end
 
     def call_remote(url, data)

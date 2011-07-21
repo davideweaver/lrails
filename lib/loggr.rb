@@ -1,15 +1,9 @@
 $:.unshift File.dirname(__FILE__)
 
-require 'loggr/monkeypatches'
 require 'loggr/catcher'
 require 'loggr/log_factory'
 require 'loggr/config'
-require 'loggr/application_environment'
-require 'loggr/exception_data'
 require 'loggr/controller_exception_data'
-require 'loggr/rack_exception_data'
-require 'loggr/alert_data'
-require 'loggr/remote'
 require 'loggr/integration/rack'    
 require 'loggr/integration/rack_rails'
 require 'loggr/version'
@@ -20,7 +14,7 @@ require 'loggr/railtie' if defined?(Rails::Railtie)
 
 module Loggr
   PROTOCOL_VERSION = 5
-  CLIENT_NAME = 'getloggr-gem'
+  CLIENT_NAME = 'loggr-gem'
   ENVIRONMENT_FILTER = []
 
   def self.logger
