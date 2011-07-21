@@ -6,17 +6,21 @@ module Loggr
 
     def self.create_from_exception(ex, request=nil)
 	  source = ""
-	  if !request.nil?
-	    if !request.parameters.nil?
-          controller = request.parameters['controller'].camelize
-	      action = request.parameters['action']
-	      if !controller.nil?
-	        source = controller.camelize + "Controller"
-            if !action.nil?
-              source = source + "#" + action.camelize
+	  begin
+        if !request.nil?
+	      if !request.parameters.nil?
+            controller = request.parameters['controller'].camelize
+	        action = request.parameters['action']
+	        if !controller.nil?
+	          source = controller.camelize + "Controller"
+              if !action.nil?
+                source = source + "#" + action.camelize
+              end
             end
-          end
+	      end
 	    end
+	  rescue
+	  # no source
 	  end
 	  ip = ""
 	  if !request.nil?
