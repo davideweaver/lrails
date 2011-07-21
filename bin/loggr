@@ -8,11 +8,11 @@ case command
   when 'help'
     puts <<USAGE
 help               # Show this usage.
-test               # Send a test exception to Exceptional.
-alert <message>    # Send a message to Exceptional. Exits 0 for success, 1 for config error, and 2 for report failure
-install <api_key>  # Create config/exceptional.yml with your api_key. Overrites existing one.
-install <api_key> <environment> # Create config/exceptional.yml with your api_key and enabled for a specific environment. Overrites existing config file.
-install <api_key> <environment>,<environment> # Create config/exceptional.yml with your api_key enabled for multiple environments (comma seperated). Overrites existing config file.
+test               # Send a test exception to Loggr.
+alert <message>    # Send a message to Loggr. Exits 0 for success, 1 for config error, and 2 for report failure
+install <api_key>  # Create config/loggr.yml with your api_key. Overrites existing one.
+install <api_key> <environment> # Create config/loggr.yml with your api_key and enabled for a specific environment. Overrites existing config file.
+install <api_key> <environment>,<environment> # Create config/loggr.yml with your api_key enabled for multiple environments (comma seperated). Overrites existing config file.
 
 USAGE
   when 'test'
@@ -20,27 +20,27 @@ USAGE
       puts "Loading Rails environment."
       require(File.join('config', 'boot'))
       require(File.join(RAILS_ROOT, 'config', 'environment')) if defined?(RAILS_ROOT)
-      require "exceptional/integration/tester"
+      require "loggr/integration/tester"
     else 
       require 'json'
-      require 'exceptional'    
-      require "exceptional/integration/tester"      
-      Exceptional::Config.load('config/exceptional.yml')
+      require 'loggr'    
+      require "loggr/integration/tester"      
+      Loggr::Config.load('config/loggr.yml')
     end    
-    if Exceptional::Config.api_key
-      Exceptional::Integration.test
+    if Loggr::Config.api_key
+      Loggr::Integration.test
     else
       puts 'API key not configured'
     end
   when 'alert'
-    require "exceptional"
-    require "exceptional/alert_data"
-    require "exceptional/integration/alerter"
-    Exceptional::Config.load('config/exceptional.yml')
-    if Exceptional::Config.api_key
-      exit(Exceptional::Integration.alert(args[0]) ? 0 : 2)
+    require "loggr"
+    require "loggr/alert_data"
+    require "loggr/integration/alerter"
+    Loggr::Config.load('config/loggr.yml')
+    if Loggr::Config.api_key
+      exit(Loggr::Integration.alert(args[0]) ? 0 : 2)
     else
-      puts 'API key not configured. Put exceptional.yml in current directory or /config'
+      puts 'API key not configured. Put loggr.yml in current directory or /config'
       exit(1)
     end
   when 'install'
@@ -48,7 +48,7 @@ USAGE
     environments = args[1]
     
     if (api_key.nil?)
-      puts 'Missing required paramater <api-key>. Check your app configuration at http://getexceptional.com.'
+      puts 'Missing required paramater <api-key>. Check your app configuration at http://getloggr.com.'
     else
       if (defined?(RAILS_ROOT) && !File.file?('config/environment.rb'))
         puts "Run this command from the root of your rails application." and exit
@@ -56,7 +56,7 @@ USAGE
         Dir.mkdir('config') unless File.exists?('config')        
       end
     end        
-    config_file = File.open('config/exceptional.yml', 'w')
+    config_file = File.open('config/loggr.yml', 'w')
     config_file.puts("api-key: #{api_key}\n")
 
     unless(environments.nil?)
@@ -67,9 +67,9 @@ USAGE
     end
     
     config_file.close
-    puts "Config file written as config/exceptional.yml.";
+    puts "Config file written as config/loggr.yml.";
     puts "----------------------------------------------";
-    File.open('config/exceptional.yml').readlines.each do |line|
+    File.open('config/loggr.yml').readlines.each do |line|
       puts line
     end
     puts "----------------------------------------------";
