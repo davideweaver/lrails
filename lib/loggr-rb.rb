@@ -6,10 +6,10 @@ require 'loggr/config'
 require 'loggr/exception_data'
 require 'loggr/integration/rack'    
 require 'loggr/integration/rack_rails'
-require 'loggr/version'
 require 'loggr/logclient'
 require 'loggr/events'
 
+require 'loggr/version' if !defined?(Loggr::VERSION)
 require 'loggr/railtie' if defined?(Rails::Railtie)
 
 module Loggr
