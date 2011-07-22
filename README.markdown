@@ -1,4 +1,4 @@
-## Ruby Loggr Agent
+## Ruby Loggr Agent (loggr-rb)
 
 This Gem/Plugin posts events and exception data to Loggr <http://loggr.net>. Includes a fluent interface to posting events.
 
@@ -10,7 +10,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 1. Configure your Gemfile
 
 	```
-	gem 'loggr'
+	gem 'loggr-rb'
 	```
 
 2. Run Bundler
@@ -56,13 +56,13 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 1. Install the loggr gem
 
 	```
-	$ gem install loggr
+	$ gem install loggr-rb
 	```
 
 2. Configure your environment.rb file
 	
 	```
-	config.gem 'loggr'
+	config.gem 'loggr-rb'
 	```
 
 3. Generate the Loggr config file (config/loggr.yml)
@@ -76,7 +76,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 4. Delete the old Exceptional Plugin (if installed)
 
 	```
-	$ rm -rf vendor/plugins/loggr
+	$ rm -rf vendor/plugins/loggr-rb
 	```
 
 5. Test everything is working
@@ -92,7 +92,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 1. Install the loggr gem
 
 	```
-	$ gem install loggr
+	$ gem install loggr-rb
 	```
 
 2. Configure your config.ru file
@@ -113,7 +113,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 1. Install the loggr gem
 
 	```
-	$ gem install loggr
+	$ gem install loggr-rb
 	```
 
 2. Configure your Sinatra app's environment
@@ -140,7 +140,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 1. Install the loggr gem
 
 	```
-	$ gem install loggr
+	$ gem install loggr-rb
 	```
 
 2. Generate the Loggr config file (config/loggr.yml)
@@ -159,11 +159,11 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 
 	You will find the API_KEY in the apps settings screen within Exceptional.
 
-3. Require the Exceptional gem in your ruby code
+3. Require the Loggr gem in your ruby code
 
 	```
 	require 'rubygems'
-	require 'exceptional'
+	require 'loggr'
 	```
 
 4. Configure Loggr for your ruby app
