@@ -200,15 +200,15 @@ Post a simple event
 A more complex example
 
 	Loggr::Events.create() \
-        .text("More complex event") \
-        .link("http://loggr.net") \
-        .tags("tag1 tag2") \
-        .source(current_user) \
-        .value(35.50) \
-        .dataf("<b>user-agent:</b> %s<br/><b>on:</b> %s", r.UA, today) \
-        .datatype(Loggr::DataType.HTML) \
-        .geo(40.1203, -76.2944) \
-        .post()
+		.textf("More complex event: %1", counter) \
+		.link("http://loggr.net") \
+		.tags("tag1 tag2") \
+		.source(current_user) \
+		.value(35.50) \
+		.dataf("<b>user-agent:</b> %s<br/><b>on:</b> %s", r.UA, today) \
+		.datatype(Loggr::DataType.HTML) \
+		.geo(40.1203, -76.2944) \
+		.post()
 
 ### Exceptions
 
