@@ -14,7 +14,7 @@ require 'loggr/railtie' if defined?(Rails::Railtie)
 
 module Loggr
   PROTOCOL_VERSION = 5
-  CLIENT_NAME = 'loggr-gem'
+  CLIENT_NAME = 'loggr-rb-gem'
   ENVIRONMENT_FILTER = []
 
   def self.logger

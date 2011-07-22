@@ -14,7 +14,7 @@ if (defined?(Loggr::VERSION::STRING) rescue nil) && %w(development test).include
   exit -1
 else
   begin
-
+Loggr.logger.info("HERE")
     if (Rails::VERSION::MAJOR < 3)    
       Loggr::Config.load(File.join(RAILS_ROOT, "/config/loggr.yml"))
       if Loggr::Config.should_send_to_api?
