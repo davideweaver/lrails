@@ -25,8 +25,8 @@ module Loggr
     Loggr::Config.api_key = api_key
   end
 
-  def self.handle(exception, name=nil)
-    Loggr::Catcher.handle(exception, name)
+  def self.handle(exception, request=nil)
+    Loggr::Catcher.handle(exception, request)
   end
   
   def self.rescue(name=nil, context=nil, &block)
