@@ -13,7 +13,7 @@ module Loggr
         end
       end
 
-      def handle(exception, request)
+      def handle(exception, request=nil)
         if Config.should_send_to_api?
           Loggr::Events.create_from_exception(exception, request).post()
         end
