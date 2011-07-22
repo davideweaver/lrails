@@ -193,15 +193,12 @@ Here's some sample code to get you started...
 
 Post a simple event
 
-	```
 	Loggr::Events.create() \
 		.text("This is a simple event") \
 		.post()
-	```
 
 A more complex example
 
-	```
 	Loggr::Events.create() \
         .text("More complex event") \
         .link("http://loggr.net") \
@@ -217,20 +214,16 @@ A more complex example
 
 Easily post a Ruby exception
 
-	```
 	Loggr::Events.create_from_exception(ex, request).post()
-	```
 
 Or add your own details to the exception
 
-	```
 	Loggr::Events.create_from_exception(ex, request) \
 		.text("This was an error: $$") \
 		.source("myapp") \
 		.add_tags("critical") \
 		.geo_ip("234.56.32.112") \
 		.post()
-	```
 
 ## More Information
 For more information check out our docs site <http://docs.loggr.net>
