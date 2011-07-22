@@ -19,7 +19,6 @@ USAGE
       require(File.join(RAILS_ROOT, 'config', 'environment')) if defined?(RAILS_ROOT)
       require "loggr/integration/tester"
     else 
-      require 'json'
       require 'loggr'    
       require "loggr/integration/tester"      
       Loggr::Config.load('config/loggr.yml')

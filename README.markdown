@@ -37,6 +37,14 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 
 4. Test everything is working
 
+	*If you are using bundler:*
+
+	```
+	$ bundle exec loggr test
+	```
+
+	*If you are not using bundler:*
+
 	```
 	$ loggr test
 	```
@@ -164,7 +172,15 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 	Loggr::Config.load("config/loggr.yml")
 	```
 
-4. Use Loggr block to catch exceptions in your ruby code in different ways
+5. Use Loggr block to catch exceptions in your ruby code in different ways
+
+	*If you are using bundler:*
+
+	```
+	$ bundle exec loggr test
+	```
+
+	*If you are not using bundler:*
 
 	```
 	$ loggr test
@@ -172,7 +188,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 
 	You will see a test event in your Loggr log
 
-5. Use Loggr blocks to catch exceptions in your ruby code in different ways
+6. Use Loggr blocks to catch exceptions in your ruby code in different ways
 
 	```
 	Loggr.rescue do
