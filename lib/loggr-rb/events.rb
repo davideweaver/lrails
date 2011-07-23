@@ -1,10 +1,10 @@
 module Loggr
   class Events
-    def self.create
-      return FluentEvent.new()
+    def self.create(callback=nil)
+      return FluentEvent.new(callback)
     end
 
-    def self.create_from_exception(ex, request=nil)
+    def self.create_from_exception(ex, request=nil, callback=nil)
 	  source = ""
 	  begin
         if !request.nil?
@@ -26,7 +26,7 @@ module Loggr
 	  if !request.nil?
 	    ip = (request.respond_to?(:remote_ip) ? request.remote_ip : request.ip)
 	  end
-	  ev = self.create
+	  ev = self.create(callback)
       ev.text("Exception '#{ex.message}'")
       ev.tags("error")
       ev.add_tags(ex.class)
@@ -49,11 +49,15 @@ module Loggr
 
   class FluentEvent
 
-    def initialize()
+    def initialize(callback=nil)
+	  @callback = callback
       @event = Event.new()
     end
 
-    def post(async = true)
+    def post(async=true)
+	  if !@callback.nil?
+	    @callback.call(self)
+	  end
       client = LogClient.new()
       client.post(@event, async)
     end

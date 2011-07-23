@@ -1,12 +1,15 @@
+require 'http'
+require 'uri'
+
 module Loggr
   class LogClient
-    def post(e, async = true)
-      require 'net/http'
-      require 'uri'
+    def post(e, async=true)
       logkey = ::Loggr::Config.log_key
-      uri = URI.parse("http://post.loggr.net/1/logs/#{logkey}/events")
-	  params = create_params(e)
-      resp = Net::HTTP.post_form(uri, params)
+	  if async == true
+	    call_remote_async("post.loggr.net", "/1/logs/#{logkey}/events", create_params(e))
+	  else
+	    call_remote("post.loggr.net", "/1/logs/#{logkey}/events", create_params(e))
+      end
     end
 
 	def create_params(e)
@@ -25,31 +28,36 @@ module Loggr
 	  return params
 	end
 
-    def call_remote(url, data)
-      config = Loggr::Config
-      optional_proxy = Net::HTTP::Proxy(config.http_proxy_host,
-                                          config.http_proxy_port,
-                                          config.http_proxy_username,
-                                          config.http_proxy_password)
-      client = optional_proxy.new(config.remote_host, config.remote_port)
-      client.open_timeout = config.http_open_timeout
-      client.read_timeout = config.http_read_timeout
-      client.use_ssl = config.ssl?
-      client.verify_mode = OpenSSL::SSL::VERIFY_NONE if config.ssl?
+    def call_remote(host, path, params)
+      http = Net::HTTP.new(host)
+      req = Net::HTTP::Get.new(path)
+      data = params.collect { |k, v| "#{k}=#{v}&" }.join
+      http.start
       begin
-        response = client.post(url, data)
-        case response
-          when Net::HTTPSuccess
-            Loggr.logger.info( "#{url} - #{response.message}")
-            return true
-          else
-            Loggr.logger.error("#{url} - #{response.code} - #{response.message}")
-        end
+        http.request_async(req, data)
+		res = http.read_response(req)
       rescue Exception => e
-        Loggr.logger.error('Problem notifying Loggr about the error')
+        Loggr.logger.error('Problem notifying Loggr about the event')
         Loggr.logger.error(e)
+      ensure
+        http.finish
       end
-      nil
+      res.value # raise if error
+    end
+
+    def call_remote_async(host, path, params)
+      http = Net::HTTP.new(host)
+      req = Net::HTTP::Get.new(path)
+      data = params.collect { |k, v| "#{k}=#{v}&" }.join
+      http.start
+      begin
+        http.request_async(req, data)
+      rescue Exception => e
+        Loggr.logger.error('Problem notifying Loggr about the event')
+        Loggr.logger.error(e)
+      ensure
+        http.finish
+      end
     end
   end
 end

@@ -241,6 +241,35 @@ Or add your own details to the exception
 		.geo_ip("234.56.32.112") \
 		.post()
 
+## Extending the agent
+
+It's pretty common to want to override the posting of the event to add things like default tags or other information. You can do that by providing a lambda to the create() call as shown here:
+
+	```
+	callback = lambda {|ev|
+	  # use this callback to make sure source is set
+	  # to the site's current user
+      e.source(MyApp::context.current_user)
+    }
+	```
+
+	Then use that lambda when posting an event
+
+	```
+	Loggr::Events.create(callback) \
+      .text("deleted a commment") \
+      .tags("comment delete") \
+      .post()
+	```
+
+	It also works with exceptions.
+
+	```
+	Loggr::Events.create_from_exception(ex, request, callback).post()
+	```
+
+It may be helpful to provide a wrapper around Loggr::Events.create and Loggr::Events.create_with_exception that always includes your callback.
+
 ## More Information
 For more information check out our docs site <http://docs.loggr.net>
 
