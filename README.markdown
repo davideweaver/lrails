@@ -98,7 +98,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 2. Configure your config.ru file
 
 	```
-	require 'loggr'
+	require 'loggr-rb'
 	use Rack::Loggr, LOG-KEY, API_KEY
 	```
 
@@ -119,7 +119,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 2. Configure your Sinatra app's environment
 
 	```
-	require 'loggr'
+	require 'loggr-rb'
 	use Rack::Loggr, LOG-KEY, API_KEY
 	```
 
@@ -163,7 +163,7 @@ Before installing this gem/plugin, be sure to sign up for a free Loggr account a
 
 	```
 	require 'rubygems'
-	require 'loggr'
+	require 'loggr-rb'
 	```
 
 4. Configure Loggr for your ruby app

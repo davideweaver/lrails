@@ -1,4 +1,4 @@
-require 'loggr'
+require 'loggr-rb'
 require 'rails'
 
 module Loggr

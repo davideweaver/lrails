@@ -17,10 +17,10 @@ USAGE
       puts "Loading Rails environment."
       require(File.join('config', 'boot'))
       require(File.join(RAILS_ROOT, 'config', 'environment')) if defined?(RAILS_ROOT)
-      require "loggr/integration/tester"
+      require "loggr-rb/integration/tester"
     else 
-      require 'loggr'    
-      require "loggr/integration/tester"      
+      require 'loggr-rb'    
+      require "loggr-rb/integration/tester"      
       Loggr::Config.load('config/loggr.yml')
     end    
     if Loggr::Config.api_key

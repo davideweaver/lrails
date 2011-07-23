@@ -1,4 +1,4 @@
-require 'loggr'
+require 'loggr-rb'
 
 # If old plugin still installed then we don't want to install this one.
 # In production environments we should continue to work as before, but in development/test we should
@@ -18,8 +18,8 @@ else
       Loggr::Config.load(File.join(RAILS_ROOT, "/config/loggr.yml"))
       if Loggr::Config.should_send_to_api?
         Loggr.logger.info("Loading Loggr #{Loggr::VERSION} for #{Rails::VERSION::STRING}")      
-        require File.join('loggr', 'integration', 'rails')    
-        require File.join('loggr', 'integration', 'dj') if defined?(Delayed::Job)
+        require File.join('loggr-rb', 'integration', 'rails')    
+        require File.join('loggr-rb', 'integration', 'dj') if defined?(Delayed::Job)
       end
     else
       Loggr::Config.load(File.join(Rails.root, "/config/loggr.yml"))
@@ -27,7 +27,7 @@ else
       if Loggr::Config.should_send_to_api?
         Loggr.logger.info("Loading Loggr #{Loggr::VERSION} for #{Rails::VERSION::STRING}")      
         Rails.configuration.middleware.use "Rack::RailsLoggr"
-        require File.join('loggr', 'integration', 'dj') if defined?(Delayed::Job)
+        require File.join('loggr-rb', 'integration', 'dj') if defined?(Delayed::Job)
       end      
     end
   rescue => e
