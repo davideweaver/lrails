@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require File.expand_path('../lib/loggr/version', __FILE__)
+require File.expand_path('../lib/loggr-rb/version', __FILE__)
 
 Gem::Specification.new do |gem|
   gem.name = %q{loggr-rb}

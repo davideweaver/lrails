@@ -1,16 +1,16 @@
 $:.unshift File.dirname(__FILE__)
 
-require 'loggr/catcher'
-require 'loggr/log_factory'
-require 'loggr/config'
-require 'loggr/exception_data'
-require 'loggr/integration/rack'    
-require 'loggr/integration/rack_rails'
-require 'loggr/logclient'
-require 'loggr/events'
+require 'loggr-rb/catcher'
+require 'loggr-rb/log_factory'
+require 'loggr-rb/config'
+require 'loggr-rb/exception_data'
+require 'loggr-rb/integration/rack'    
+require 'loggr-rb/integration/rack_rails'
+require 'loggr-rb/logclient'
+require 'loggr-rb/events'
 
-require 'loggr/version' if !defined?(Loggr::VERSION)
-require 'loggr/railtie' if defined?(Rails::Railtie)
+require 'loggr-rb/version' if !defined?(Loggr::VERSION)
+require 'loggr-rb/railtie' if defined?(Rails::Railtie)
 
 module Loggr
   PROTOCOL_VERSION = 5
