@@ -1,4 +1,4 @@
-require 'http'
+require 'loggr-rb/http'
 require 'uri'
 
 module Loggr
