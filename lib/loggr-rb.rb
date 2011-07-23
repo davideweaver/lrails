@@ -1,9 +1,9 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'loggr-rb/catcher'
-require 'loggr-rb/log_factory'
+require 'loggr-rb/logfactory'
 require 'loggr-rb/config'
-require 'loggr-rb/exception_data'
+require 'loggr-rb/exceptiondata'
 require 'loggr-rb/integration/rack'    
 require 'loggr-rb/integration/rack_rails'
 require 'loggr-rb/logclient'
